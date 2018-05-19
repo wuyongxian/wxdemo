@@ -1,0 +1,35 @@
+.leftfooter{
+    padding-top: 75px;
+    height: 0;
+    width: 0;
+    left:0px;
+}
+.leftfooter .leftfooterInner{
+    position: relative;
+    left: 12px;
+    right: 12px;
+    bottom: 4px;
+    padding: 8px;
+    line-height: 36px;
+    border-top: 3px double #E5E5E5;
+    background: #ccc;
+}
+
+
+/*颜色样式*/
+.bgcolor_eff {
+    background-color: #EFF3F8
+}
+
+/*控件样式*/
+.lbl-inline {
+    display: inline-flex;
+    font-size: 13px;
+    font-weight:400;
+    margin:5px 5px;
+}
+
+.table-header span {
+margin:2px 5px;
+font-weight:400;
+}

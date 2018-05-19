@@ -1,0 +1,35 @@
+账号 ly_wyx@163.com
+密码  Eye_L1ke
+名称 不居岁
+微信号 helloospring
+
+开发者信息
+
+开发者ID(AppID)
+wx23b0e78f46c768f1
+AppSecret
+678d9443a9115bd78b655d087dbf6cc4
+
+
+服务器基本配置
+
+URL：http://18701917173.xicp.net
+Token：Wuyx2018
+EncodingAESKey：ovs7lQqhNb37bn7tBIDAM6YnTGAe1SJ5GOFNKBDiZAX
+
+
+
+
+测试号：
+appID
+wx7436ca9de2359279
+appsecret
+3a684526b20d2fdc94e743ea9a62d9e5
+
+URL
+http://wuyx.nat123.net/wxtest
+Token
+Wuyx2018
+
+域名
+wuyx.nat123.net

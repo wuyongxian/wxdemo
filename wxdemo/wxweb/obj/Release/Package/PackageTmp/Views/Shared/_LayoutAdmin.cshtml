@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="index Page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/font-awesome")
+    @Styles.Render("~/Content/ace")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body class="no-skin">
+    @{Html.RenderPartial("_PartialAdminHeader");}
+    
+
+    <div class="main-container ace-save-state" id="main-container">
+        
+        <div id="sidebar" class="sidebar responsive ace-save-state">
+           
+            <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+            </div>
+
+            <ul id="sidebar_ul" class="nav nav-list"></ul><!-- /.nav-list -->
+
+        </div>
+
+        <div class="main-content">
+
+            <div class="main-content-inner">
+
+                @{Html.RenderPartial("_PartialAdminBreadcumbs");}
+                <div class="page-content">
+                   
+                    @RenderBody()
+                </div>
+            </div>
+
+        </div>
+
+        @{Html.RenderPartial("_PartialAdminFooter");}
+    </div>
+
+
+</body>
+
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/ace")
+@Scripts.Render("~/bundles/common")
+<script type="text/javascript" src="~/Scripts/la.js"></script>
+<script type="text/javascript">
+    $(function () {
+        window.LA.Load();
+    })
+</script>
+@RenderSection("scripts", required: false)
+</html>

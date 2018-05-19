@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PHWXModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="subscriber">
+          <Key>
+            <PropertyRef Name="openid" />
+          </Key>
+          <Property Name="openid" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="subscribe" Type="bit" Nullable="false" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="50" />
+          <Property Name="sex" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="country" Type="nvarchar" MaxLength="50" />
+          <Property Name="province" Type="nvarchar" MaxLength="50" />
+          <Property Name="strlanguage" Type="nvarchar" MaxLength="50" />
+          <Property Name="headimgurl" Type="nvarchar" MaxLength="200" />
+          <Property Name="subscribe_time" Type="nvarchar" MaxLength="50" />
+          <Property Name="unionid" Type="nvarchar" MaxLength="50" />
+          <Property Name="groupid" Type="nvarchar" MaxLength="50" />
+          <Property Name="tagid_list" Type="nvarchar" MaxLength="50" />
+          <Property Name="subscribe_scene" Type="nvarchar" MaxLength="50" />
+          <Property Name="qr_scene" Type="nvarchar" MaxLength="50" />
+          <Property Name="qr_scene_str" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="sName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="remark" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="numstate" Type="bit" Nullable="false" />
+          <Property Name="dtCreate" Type="datetime" />
+          <Property Name="dtUpdate" Type="datetime" />
+          <Property Name="sort" Type="int" />
+        </EntityType>
+        <EntityType Name="UserMenu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="sName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sTag" Type="nvarchar" MaxLength="50" />
+          <Property Name="sUrl" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="sIconUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="sort" Type="int" Nullable="false" />
+          <Property Name="numstate" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMenuAuthority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="UserGroupID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="UserMenuID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="sAuthority" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDefaultForm" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserOperateLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="dtLoginIn" Type="datetime" />
+          <Property Name="dtLoginOut" Type="datetime" />
+          <Property Name="sIpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="sTimeLength" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="numstate" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="UserGroupID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="sRealName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sLoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sHeaderPhoto" Type="nvarchar" MaxLength="200" />
+          <Property Name="sPhoneNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="sAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="sGender" Type="int" />
+          <Property Name="remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="numstate" Type="bit" Nullable="false" />
+          <Property Name="dtCreate" Type="datetime" />
+          <Property Name="dtUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="wxmsmResponse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="eventType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="resMessageType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="eventKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="msgContent" Type="nvarchar" MaxLength="500" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="msgDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="PicUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="Url" Type="nvarchar" MaxLength="200" />
+          <Property Name="MediaId" Type="nvarchar" MaxLength="200" />
+          <Property Name="sort" Type="int" />
+          <Property Name="numstate" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="PHWXModelStoreContainer">
+          <EntitySet Name="subscriber" EntityType="Self.subscriber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMenu" EntityType="Self.UserMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMenuAuthority" EntityType="Self.UserMenuAuthority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOperateLog" EntityType="Self.UserOperateLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wxmsmResponse" EntityType="Self.wxmsmResponse" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PHWXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="subscriber">
+          <Key>
+            <PropertyRef Name="openid" />
+          </Key>
+          <Property Name="openid" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="subscribe" Type="Boolean" Nullable="false" />
+          <Property Name="nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="strlanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="headimgurl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="subscribe_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="unionid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="groupid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tagid_list" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="subscribe_scene" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="qr_scene" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="qr_scene_str" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="numstate" Type="Boolean" Nullable="false" />
+          <Property Name="dtCreate" Type="DateTime" Precision="3" />
+          <Property Name="dtUpdate" Type="DateTime" Precision="3" />
+          <Property Name="sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserMenu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sTag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sIconUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="sort" Type="Int32" Nullable="false" />
+          <Property Name="numstate" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMenuAuthority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserGroupID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserMenuID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sAuthority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDefaultForm" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserOperateLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dtLoginIn" Type="DateTime" Precision="3" />
+          <Property Name="dtLoginOut" Type="DateTime" Precision="3" />
+          <Property Name="sIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sTimeLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numstate" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserGroupID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sRealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sLoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sHeaderPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="sPhoneNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sGender" Type="Int32" />
+          <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="numstate" Type="Boolean" Nullable="false" />
+          <Property Name="dtCreate" Type="DateTime" Precision="3" />
+          <Property Name="dtUpdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="PHWXEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="subscribers" EntityType="Self.subscriber" />
+          <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+          <EntitySet Name="UserMenus" EntityType="Self.UserMenu" />
+          <EntitySet Name="UserMenuAuthorities" EntityType="Self.UserMenuAuthority" />
+          <EntitySet Name="UserOperateLogs" EntityType="Self.UserOperateLog" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="wxmsmResponses" EntityType="PHWXModel.wxmsmResponse" />
+        </EntityContainer>
+        <EntityType Name="wxmsmResponse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="eventType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="resMessageType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="msgContent" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="msgDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PicUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MediaId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="sort" Type="Int32" />
+          <Property Name="numstate" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PHWXModelStoreContainer" CdmEntityContainer="PHWXEntities">
+          <EntitySetMapping Name="subscribers">
+            <EntityTypeMapping TypeName="PHWXModel.subscriber">
+              <MappingFragment StoreEntitySet="subscriber">
+                <ScalarProperty Name="openid" ColumnName="openid" />
+                <ScalarProperty Name="subscribe" ColumnName="subscribe" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="strlanguage" ColumnName="strlanguage" />
+                <ScalarProperty Name="headimgurl" ColumnName="headimgurl" />
+                <ScalarProperty Name="subscribe_time" ColumnName="subscribe_time" />
+                <ScalarProperty Name="unionid" ColumnName="unionid" />
+                <ScalarProperty Name="groupid" ColumnName="groupid" />
+                <ScalarProperty Name="tagid_list" ColumnName="tagid_list" />
+                <ScalarProperty Name="subscribe_scene" ColumnName="subscribe_scene" />
+                <ScalarProperty Name="qr_scene" ColumnName="qr_scene" />
+                <ScalarProperty Name="qr_scene_str" ColumnName="qr_scene_str" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserGroups">
+            <EntityTypeMapping TypeName="PHWXModel.UserGroup">
+              <MappingFragment StoreEntitySet="UserGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="sCode" ColumnName="sCode" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="numstate" ColumnName="numstate" />
+                <ScalarProperty Name="dtCreate" ColumnName="dtCreate" />
+                <ScalarProperty Name="dtUpdate" ColumnName="dtUpdate" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMenus">
+            <EntityTypeMapping TypeName="PHWXModel.UserMenu">
+              <MappingFragment StoreEntitySet="UserMenu">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="sTag" ColumnName="sTag" />
+                <ScalarProperty Name="sUrl" ColumnName="sUrl" />
+                <ScalarProperty Name="sIconUrl" ColumnName="sIconUrl" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="numstate" ColumnName="numstate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMenuAuthorities">
+            <EntityTypeMapping TypeName="PHWXModel.UserMenuAuthority">
+              <MappingFragment StoreEntitySet="UserMenuAuthority">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserMenuID" ColumnName="UserMenuID" />
+                <ScalarProperty Name="sAuthority" ColumnName="sAuthority" />
+                <ScalarProperty Name="isDefaultForm" ColumnName="isDefaultForm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserOperateLogs">
+            <EntityTypeMapping TypeName="PHWXModel.UserOperateLog">
+              <MappingFragment StoreEntitySet="UserOperateLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="dtLoginIn" ColumnName="dtLoginIn" />
+                <ScalarProperty Name="dtLoginOut" ColumnName="dtLoginOut" />
+                <ScalarProperty Name="sIpAddress" ColumnName="sIpAddress" />
+                <ScalarProperty Name="sTimeLength" ColumnName="sTimeLength" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="numstate" ColumnName="numstate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PHWXModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />
+                <ScalarProperty Name="sRealName" ColumnName="sRealName" />
+                <ScalarProperty Name="sLoginName" ColumnName="sLoginName" />
+                <ScalarProperty Name="sPassword" ColumnName="sPassword" />
+                <ScalarProperty Name="sHeaderPhoto" ColumnName="sHeaderPhoto" />
+                <ScalarProperty Name="sPhoneNO" ColumnName="sPhoneNO" />
+                <ScalarProperty Name="sAddress" ColumnName="sAddress" />
+                <ScalarProperty Name="sGender" ColumnName="sGender" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="numstate" ColumnName="numstate" />
+                <ScalarProperty Name="dtCreate" ColumnName="dtCreate" />
+                <ScalarProperty Name="dtUpdate" ColumnName="dtUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wxmsmResponses">
+            <EntityTypeMapping TypeName="PHWXModel.wxmsmResponse">
+              <MappingFragment StoreEntitySet="wxmsmResponse">
+                <ScalarProperty Name="numstate" ColumnName="numstate" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="PicUrl" ColumnName="PicUrl" />
+                <ScalarProperty Name="msgDescription" ColumnName="msgDescription" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="msgContent" ColumnName="msgContent" />
+                <ScalarProperty Name="eventKey" ColumnName="eventKey" />
+                <ScalarProperty Name="resMessageType" ColumnName="resMessageType" />
+                <ScalarProperty Name="eventType" ColumnName="eventType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,373 @@
+﻿@model  IEnumerable<DAL.subscriber>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-header">
+            <span>订阅者列表</span>
+
+            <button class="btn btn-xs btn-success" onclick="getItem('')">
+                <i class="ace-icon fa fa-plus-circle bigger-130"></i>
+                添加
+            </button>
+        </div>
+
+        @*<div class="bgcolor_eff">
+                <div class="col-xs-6">
+                    <div class="dataTables_length" id="dynamic-table_length">
+
+
+
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div id="dynamic-table_filter" class="dataTables_filter">
+                        <label class="lbl-inline">
+                            Display
+                            <select name="dynamic-table_length" aria-controls="dynamic-table" class="form-control input-sm">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> records
+                        </label>
+                        <label class="lbl-inline">Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
+                    </div>
+                </div>
+            </div>*@
+        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="center">
+                        <label class="pos-rel">
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </th>
+
+
+                    <th>昵称</th>
+                    <th>性别</th>
+                    <th>地址</th>
+                    <th>关注时间</th>
+                    <th>分组</th>
+                    <th class="hidden-480">描述</th>
+                    <th>状态</th>
+                    <th>编辑</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="center">
+                                <label class="pos-rel">
+                                    <input type="checkbox" class="ace" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </td>
+
+                            <td>@Html.DisplayFor(itemModel => item.nickname)</td>
+                            <td>
+                                @if (item.sex == "1")
+                                {
+                                    <span class="label label-sm label-info">男</span>
+                                }
+                                else if (item.sex == "2")
+                                {
+                                    <span class="label label-sm label-info">女</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-sm label-default">未知</span>
+                                }
+                            </td>
+                            <td>@Html.DisplayFor(itemModel => item.country)</td>
+                            <td>
+
+
+                                @Html.DisplayFor(itemModel => item.subscribe_time)
+                            </td>
+                            <td>@Html.DisplayFor(itemModel => item.groupid)</td>
+                            <td class="hidden-480">@Html.DisplayFor(itemModel => item.remark)</td>
+                            <td>
+                                @if (item.subscribe == true)
+                                {
+                                    <span class="label label-sm label-success">已订阅</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-sm label-warning">未订阅</span>
+                                }
+                            </td>
+
+
+                            <td>
+                                <div class="action-buttons">
+                                    <a class="green" href="#" onclick="getItem('@item.openid')">
+                                        <i class="ace-icon fa fa-search bigger-130"></i>
+                                    </a>
+                                    @*<a class="green" href="#" onclick="getItem('@item.openid')">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        </a>
+
+                                        <a class="red" href="#" onclick="delItem('@item.openid')">
+                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>*@
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+    </div><!-- /.row -->
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="form1" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sName"> 订阅状态 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="ID" name="ID" style="display:none;" />
+                            <label>
+                                <input id="subscribe" name="subscribe" class="ace ace-switch ace-switch-6" type="checkbox" checked="checked">
+                                <span class="lbl" for="numstate"></span>
+                            </label>
+                        </div>
+
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户头像 </label>
+
+                        <div class="col-sm-4">
+                            @*<input type="text" id="headimgurl" name="headimgurl" placeholder="" class="col-xs-10 ">*@
+                            <img id="headimgurl" name="headimgurl" src="" style="width:50px;height:50px;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户的标识(openid) </label>
+
+                        <div class="col-sm-10">
+                            <input type="text" id="openid" name="openid" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户的昵称 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="nickname" name="nickname" placeholder="" class="col-xs-10 ">
+                        </div>
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户的性别 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="sex" name="sex" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户的语言 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="strlanguage" name="strlanguage" placeholder="" class="col-xs-10 ">
+                        </div>
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 关注时间 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="subscribe_time" name="subscribe_time" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户分组ID </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="groupid" name="groupid" placeholder="" class="col-xs-10 ">
+                        </div>
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 标签ID列表 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="tagid_list" name="tagid_list" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户所在国家 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="country" name="country" placeholder="" class="col-xs-10 ">
+                        </div>
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户所在省份 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="province" name="province" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 用户所在城市 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="city" name="city" placeholder="" class="col-xs-10 ">
+                        </div>
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 关注渠道 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="subscribe_scene" name="subscribe_scene" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 二维码扫码场景 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="qr_scene" name="qr_scene" placeholder="" class="col-xs-10 ">
+                        </div>
+                        <label class="col-sm-2 control-label no-padding-right" for="sCode"> 二维码扫码场景描述 </label>
+
+                        <div class="col-sm-4">
+                            <input type="text" id="qr_scene_str" name="qr_scene_str" placeholder="" class="col-xs-10 ">
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="remark"> 备注 </label>
+
+                        <div class="col-sm-10">
+                            <textarea id="remark" name="remark" placeholder="请输入对订阅者的描述" class="form-control"></textarea>
+                            @*<input type="password" id="remark" name="remark" placeholder="Password" class="form-control">*@
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                @*<button type="button" class="btn btn-primary">提交更改</button>*@
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+<script type="text/javascript">
+    var item_id = '';//表id
+    $(function () {
+        $('.modal-dialog .btn-primary').click(function () {
+            submitItem();
+        })
+    })
+
+
+
+    function getItem(openid) {
+        if (openid == '') {//新建模式
+            item_id = '';
+            $('#ID').val('');
+            $('#myModalLabel').html("订阅者（新建）");
+            $('#myModal').modal('show');
+        }
+        else {//编辑模式
+            item_id = openid;
+            $('#ID').val(openid);
+
+            $.post("/Admin/subscriber/getItem", { openid: openid },
+                function (r) {
+                    $('#sName').val(r.sName);
+                    $('#sCode').val(r.sCode);
+                    if (r.subscribe) {
+                        var dom_numstate = document.getElementById('subscribe');
+                        dom_numstate.checked = true;
+                    } else {
+                        var dom_numstate = document.getElementById('subscribe');
+                        dom_numstate.checked = false;
+                    }
+                    $('#openid').val(r.openid);
+                    $('#nickname').val(r.nickname);
+                    if (r.sex == '1') {
+                        $('#sex').val('男');
+                    } else if (r.sex == '2') {
+                        $('#sex').val('女');
+                    } else {
+                        $('#sex').val('未知');
+                    }
+                    $('#sex').val(r.sex);
+                    $('#city').val(r.city);
+                    $('#country').val(r.country);
+                    $('#province').val(r.province);
+                    $('#language').val(r.language);
+                    $('#headimgurl').attr('src', r.headimgurl);
+                    $('#subscribe_time').val(CM.stampToDate(r.subscribe_time));
+                    $('#remark').val(r.remark);
+                    $('#groupid').val(r.groupid);
+                    $('#tagid_list').val(r.tagid_list);
+                    $('#subscribe_scene').val(r.subscribe_scene);
+                    $('#qr_scene').val(r.qr_scene);
+                    $('#qr_scene_str').val(r.qr_scene_str);
+
+
+                    $('#myModalLabel').html("订阅者（查看）");
+                    $('#myModal').modal('show');
+                })
+        }
+
+    }
+
+    function submitItem() {
+        var url = '/Admin/UserGroup/EditItem';
+        if (item_id == '') {
+            url = '/Admin/UserGroup/Create';
+        }
+
+        $.post(url, $('#form1').serialize(),
+            function (r) {
+                if (r.state) {
+                    window.location.href = '/Admin/UserGroup/Index';
+                } else {
+                    CM.showMsg('提交数据失败!');
+                }
+            })
+    }
+
+    function delItem(id) {
+        var msg = '您确认要删除此条信息吗？';
+        CM.showConfirm(msg, function (obj) {
+            if (obj == 'yes') {
+
+                $.post("/Admin/UserGroup/Delete", { id: id },
+                    function (r) {
+                        if (r.state) {
+                            window.location.href = '/Admin/UserGroup/Index';
+                        } else {
+                            CM.showMsg('删除数据失败!');
+                        }
+                    })
+            } else {
+                //console.log('你点击了取消！');
+            }
+
+        });
+    }
+</script>
+

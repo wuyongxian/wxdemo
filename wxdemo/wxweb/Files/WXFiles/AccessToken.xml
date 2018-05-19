@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+  <!--开发者ID(AppID)-->
+  <appid>wx7436ca9de2359279</appid>
+  <!--开发者密码(AppSecret)-->
+  <secret>3a684526b20d2fdc94e743ea9a62d9e5</secret>
+  <!--Access_Token节点中的起始数据可以随便写-->
+  <Access_Token>9_lNqbugW76k-qM3jNGONweyoqVEv7LR6UlUitYLAvtfYlr7jHQGMD8m7M9Jh4ROJD1WDf30Pfkhw-uaZ79zFbWU68uxyR8ZuVDO1egRgxmS_gBDY9nA1KJL5Olsuw9JtQnq5JT6-DtnHW0KrwDQJfAIAJWP</Access_Token>
+  <!--Access_YouXRQ节点中的数据写一个之前两小时的时间就可以了（推荐直接写前一天的23:59:59）-->
+  <Access_YouXRQ>2018/5/17 21:08:51</Access_YouXRQ>
+</xml>

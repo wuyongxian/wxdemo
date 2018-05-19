@@ -1,0 +1,432 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/Utility/dropzone/dist/dropzone.css" />
+<script type="text/javascript" src="~/Utility/dropzone/dist/dropzone.js"></script>
+<!--class="dropzone" 使用dropzone自带的样式 样式在引用的CSS中-->
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-header">
+            <span>用户列表</span>
+
+            <button class="btn btn-xs btn-success" onclick="getItem('')">
+                <i class="ace-icon fa fa-plus-circle bigger-130"></i>
+                添加
+            </button>
+        </div>
+
+        @*<div class="bgcolor_eff">
+                <div class="col-xs-6">
+                    <div class="dataTables_length" id="dynamic-table_length">
+
+
+
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div id="dynamic-table_filter" class="dataTables_filter">
+                        <label class="lbl-inline">
+                            Display
+                            <select name="dynamic-table_length" aria-controls="dynamic-table" class="form-control input-sm">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> records
+                        </label>
+                        <label class="lbl-inline">Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
+                    </div>
+                </div>
+            </div>*@
+        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="center">
+                        <label class="pos-rel">
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </th>
+                    <th>用户</th>
+                    <th>登陆名</th>
+                    <th>真实姓名</th>
+                    <th>性别</th>
+                    <th>手机号</th>
+
+                    <th>
+                        <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                        创建时间
+                    </th>
+                    <th>状态</th>
+                    <th>编辑</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{foreach (var one in ViewBag.ulist)
+                    {
+
+                        <tr>
+                            <td class="center">
+                                <label class="pos-rel">
+                                    <input type="checkbox" class="ace" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </td>
+                            <td>@one.UserGroupID</td>
+                            <td>@one.sLoginName</td>
+                            <td>@one.sRealName</td>
+                            <td>@one.sGender</td>
+                            <td>@one.sPhoneNO</td>
+                            <td>@one.dtCreate</td>
+
+                            @*<td>
+                                    @Html.DisplayFor(itemModel => item.dtCreate, "ShortDateTime")
+
+                                </td>*@
+
+                            <td>
+
+                                @if (@one.numstate == true)
+                                {
+                                    <span class="label label-sm label-success">启用</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-sm label-warning">禁用</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a class="green" href="#" onclick="getItem('@one.ID')">
+                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                    </a>
+
+                                    <a class="red" href="#" onclick="delItem('@one.ID')">
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        
+        </table>
+
+    </div><!-- /.row -->
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="form1" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sName"> 用户</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="ID" name="ID" style="display:none;" />
+                            <input type="text" id="sHeaderPhoto" name="sHeaderPhoto" style="display:none;" />
+
+                            @Html.DropDownList("UserGroupID", ViewBag.ugList as SelectList, new { @style = "width:175px;" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sRealName"> 头像 </label>
+                        <div class="col-sm-4" id="div_sHeaderPhoto">
+                            <img id="img_sHeaderPhoto" src="" alt="用户头像" style="width:150px; height:150px;border-radius:20px;" />
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="dropzone" id="my-dropzone" style="width:135px;height:150px;padding:0px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sRealName"> 真实姓名 </label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" id="sRealName" name="sRealName" placeholder="请输入用户真实姓名" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sLoginName"> 登陆名 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="sLoginName" name="sLoginName" placeholder="请输入用户登陆名" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sPassword"> 密码 </label>
+
+                        <div class="col-sm-9">
+                            <input type="password" id="sPassword" name="sPassword" placeholder="请输入用户登陆密码" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sPhoneNO"> 手机号 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="sPhoneNO" name="sPhoneNO" placeholder="请输入用户手机号" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sAddress"> 地址 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="sAddress" name="sAddress" placeholder="请输入用户地址" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sGender"> 性别 </label>
+
+                        <div class="col-sm-9">
+                            <label>
+                                <input name="sGender" type="radio" value="1" class="ace">
+                                <span class="lbl"> 男</span>
+                            </label>
+                            <label>
+                                <input name="sGender" type="radio" value="2" class="ace">
+                                <span class="lbl"> 女</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sName"> 状态 </label>
+
+                        <div class="col-sm-9">
+                            <label>
+                                <input id="numstate" name="numstate" class="ace ace-switch ace-switch-6" type="checkbox" checked="checked">
+                                <span class="lbl" for="numstate"></span>
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="remark"> 描述 </label>
+
+                        <div class="col-sm-9">
+                            <textarea id="remark" name="remark" placeholder="请输入对用户的描述" class="form-control"></textarea>
+                            @*<input type="password" id="remark" name="remark" placeholder="Password" class="form-control">*@
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btnSubmit" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+
+<script type="text/javascript">
+    var item_id = '';//表id
+    $(function () {
+        $('.modal-dialog .btn-primary').click(function () {
+            submitItem();
+        })
+    })
+
+    function getItem(id) {
+        if (!CM.isNull(myDropzone) && myDropzone.files.length != 0) {
+            for (var i = 0; i < myDropzone.files.length; i++) {
+                myDropzone.removeFile(myDropzone.files[0]);
+            }
+        }
+        $('#sHeaderPhoto').val('');
+        if (id == '') {//新建模式
+            item_id = '';
+            $('#div_sHeaderPhoto').hide();
+            $('#myModalLabel').html("用户（新建）");
+            $('#myModal').modal('show');
+        }
+        else {//编辑模式
+            item_id = id;
+            $('#ID').val(id);
+
+            $.post("/Admin/User/getItem", { id: id },
+                function (r) {
+                    $('#UserGroupID').val(r.UserGroupID);
+                    //$('#sGender').val(r.sGender);
+
+                    $('#sRealName').val(r.sRealName);
+                    $('#sLoginName').val(r.sLoginName);
+                    //$('#sPassword').val(r.sPassword);
+                    $('#sPhoneNO').val(r.sPhoneNO);
+                    $('#sAddress').val(r.sAddress);
+                    //$('input:radio:first').attr('checked', 'checked');
+                    if (r.sGender == 1) {
+                        // $("#sGender[value='1']").attr('checked', 'checked');
+                        $('input:radio:first').attr('checked', 'checked');
+                    } else if (r.sGender == 2) {
+                        //$("#sGender[value='2']").attr('checked', 'checked');
+                        $('input:radio:last').attr('checked', 'checked');
+                    } else {
+                        //$('input:radio').attr('checked', false);
+                    }
+                    if (r.numstate) {
+                        var dom_numstate = document.getElementById('numstate');
+                        dom_numstate.checked = true;
+                    } else {
+                        var dom_numstate = document.getElementById('numstate');
+                        dom_numstate.checked = false;
+                    }
+
+                    $('#sHeaderPhoto').val('');//待更新头像是，重置文件路径
+
+                    if (!CM.isNull(r.sHeaderPhoto)) {
+                        $('#div_sHeaderPhoto').show();
+                        var sHeaderPhoto = CM.replaceAll(r.sHeaderPhoto, '\\', '/');
+                        $('#img_sHeaderPhoto').attr('src', sHeaderPhoto);
+                    } else {
+                        $('#div_sHeaderPhoto').hide();
+                    }
+
+                    $('#remark').val(r.remark);
+
+                    $('#myModalLabel').html("用户（编辑）");
+                    $('#myModal').modal('show');
+                })
+        }
+
+    }
+
+    function submitItem() {
+        var url = '/Admin/User/EditItem';
+        if (item_id == '') {
+            url = '/Admin/User/Create';
+        }
+        if ($('#ID').val() == '') {
+            $('#ID').val(CM.newGuid());
+        }
+
+        $.post(url, $('#form1').serialize(),
+            function (r) {
+                if (r.state) {
+                    window.location.href = '/Admin/User/Index';
+                } else {
+                    CM.showMsg('提交数据失败!');
+                }
+            })
+    }
+
+    function delItem(id) {
+        var msg = '您确认要删除此条信息吗？';
+        CM.showConfirm(msg, function (obj) {
+            if (obj == 'yes') {
+                $.post("/Admin/User/Delete", { id: id },
+                    function (r) {
+                        if (r.state) {
+                            window.location.href = '/Admin/User/Index';
+                        } else {
+                            CM.showMsg('删除数据失败!');
+                        }
+                    })
+            } else {
+                //console.log('你点击了取消！');
+            }
+
+        });
+    }
+
+
+
+
+      //Dropzone的初始化，myDropzone为form的id
+        Dropzone.options.myDropzone = {
+
+            //指定上传图片的路径
+           // url: "@Url.Action("FileUpload", "file")",
+            url: '/Admin/File/UploadHeaderPhoto',
+            //url: '/Admin/File/UploadFile',
+            method: "post",  //也可用put
+            paramName: "file", //默认为file
+            maxFiles: 1,//一次性上传的文件数量上限
+            maxFilesize: 0.2, //文件大小，单位：MB
+            acceptedFiles: ".jpg,.gif,.png,.jpeg", //上传的类型
+            addRemoveLinks: true, //添加上传取消和删除预览图片的链接，默认不添加
+            autoProcessQueue: true,//关闭自动上传功能，默认会true会自动上传
+            uploadMultiple: false,//允许上传多个照片
+            parallelUploads: 1,//每次上传的最多文件数，经测试默认为2，坑啊,记得修改web.config 限制上传文件大小的节
+            dictDefaultMessage: '拖动文件至此或者点击上传',
+            dictMaxFilesExceeded: "您最多只能上传1个文件！",
+            dictResponseError: '文件上传失败!',
+            dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+            dictFallbackMessage: "浏览器不受支持",
+            dictFileTooBig: "文件过大上传文件最大支持.",
+            dictRemoveLinks: "删除",
+            dictCancelUpload: "取消",
+            init: function () {
+                //var submitButton = document.querySelector("#btnSubmit")
+                myDropzone = this; // closure
+
+                ////为上传按钮添加点击事件
+                //submitButton.addEventListener("click", function () {
+                //    //手动上传所有图片
+                //    myDropzone.processQueue();
+                //});
+
+                //当添加图片后的事件，上传按钮恢复可用
+                this.on("addedfile", function () {
+                    //$("#btnSubmit").removeAttr("disabled");
+                });
+
+                //当上传完成后的事件，接受的数据为JSON格式
+                this.on("complete", function (data) {
+                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                        var res = eval('(' + data.xhr.responseText + ')');
+                        //if (Dropzone.options.myDropzone.maxFiles != 1) {
+                        //    res = res[0];
+                        //}
+                        res = res[0];
+                        //var msg;
+                        if (res.Result) {
+                            //msg = "恭喜，已成功上传" + res.Count + "张照片！";
+                            if (item_id == '') {//新建操作
+                                $('#ID').val(res.guid);
+                            }
+
+                            $('#sHeaderPhoto').val(res.filePath);
+                        }
+                        else {
+                           // msg = "上传失败，失败的原因是：" + res.Message;
+                        }
+                       // CM.showMsg(msg);
+                        //$("#message").text(msg);
+                        //$("#dialog").dialog("open");
+                    }
+                });
+
+                //删除图片的事件，当上传的图片为空时，使上传按钮不可用状态
+                this.on("removedfile", function () {
+                    if (this.getAcceptedFiles().length === 0) {
+                        $('#sHeaderPhoto').val('');
+                    }
+                });
+            }
+        };
+</script>
+

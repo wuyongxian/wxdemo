@@ -1,0 +1,15 @@
+F:\wxdemo\wxPlatForm\bin\Release\wxPlatForm.dll
+F:\wxdemo\wxPlatForm\bin\Release\wxPlatForm.pdb
+F:\wxdemo\wxPlatForm\bin\Release\common.dll
+F:\wxdemo\wxPlatForm\bin\Release\DAL.dll
+F:\wxdemo\wxPlatForm\bin\Release\EntityFramework.dll
+F:\wxdemo\wxPlatForm\bin\Release\common.pdb
+F:\wxdemo\wxPlatForm\bin\Release\DAL.pdb
+F:\wxdemo\wxPlatForm\bin\Release\DAL.dll.config
+F:\wxdemo\wxPlatForm\bin\Release\EntityFramework.xml
+F:\wxdemo\wxPlatForm\bin\Release\zh-Hans\EntityFramework.resources.dll
+F:\wxdemo\wxPlatForm\obj\Release\wxPlatForm.csprojResolveAssemblyReference.cache
+F:\wxdemo\wxPlatForm\obj\Release\wxPlatForm.csproj.CoreCompileInputs.cache
+F:\wxdemo\wxPlatForm\obj\Release\wxPlatForm.csproj.CopyComplete
+F:\wxdemo\wxPlatForm\obj\Release\wxPlatForm.dll
+F:\wxdemo\wxPlatForm\obj\Release\wxPlatForm.pdb

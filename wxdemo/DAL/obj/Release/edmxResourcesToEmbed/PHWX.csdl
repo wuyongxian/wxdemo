@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PHWXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="subscriber">
+    <Key>
+      <PropertyRef Name="openid" />
+    </Key>
+    <Property Name="openid" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="subscribe" Type="Boolean" Nullable="false" />
+    <Property Name="nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="strlanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="headimgurl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="subscribe_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="unionid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="groupid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tagid_list" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="subscribe_scene" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="qr_scene" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="qr_scene_str" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserGroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="numstate" Type="Boolean" Nullable="false" />
+    <Property Name="dtCreate" Type="DateTime" Precision="3" />
+    <Property Name="dtUpdate" Type="DateTime" Precision="3" />
+    <Property Name="sort" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UserMenu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ParentID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sTag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sIconUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="sort" Type="Int32" Nullable="false" />
+    <Property Name="numstate" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserMenuAuthority">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserGroupID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserMenuID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sAuthority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="isDefaultForm" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserOperateLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dtLoginIn" Type="DateTime" Precision="3" />
+    <Property Name="dtLoginOut" Type="DateTime" Precision="3" />
+    <Property Name="sIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sTimeLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="numstate" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserGroupID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sRealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sLoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sHeaderPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="sPhoneNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sGender" Type="Int32" />
+    <Property Name="remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="numstate" Type="Boolean" Nullable="false" />
+    <Property Name="dtCreate" Type="DateTime" Precision="3" />
+    <Property Name="dtUpdate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="PHWXEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="subscribers" EntityType="Self.subscriber" />
+    <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+    <EntitySet Name="UserMenus" EntityType="Self.UserMenu" />
+    <EntitySet Name="UserMenuAuthorities" EntityType="Self.UserMenuAuthority" />
+    <EntitySet Name="UserOperateLogs" EntityType="Self.UserOperateLog" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+  </EntityContainer>
+</Schema>

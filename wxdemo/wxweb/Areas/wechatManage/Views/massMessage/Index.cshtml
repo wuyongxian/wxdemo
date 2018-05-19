@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    #editor {
+        overflow: scroll;
+        max-height: 300px
+    }
+</style>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-6 control-label" for="sName">
+            您本月还可群发<strong class="text-danger">2</strong> 条消息
+            <a href="#">点击查看群发记录</a>
+        </label>
+
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"> 群发对象 </label>
+        <div class="btn-group  col-xs-9">
+            <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false" style="width:200px;">
+                Action
+                <i class="ace-icon fa fa-angle-down icon-on-right"></i>
+            </button>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#">Action</a>
+                </li>
+
+                <li>
+                    <a href="#">Another action</a>
+                </li>
+
+                <li>
+                    <a href="#">Something else here</a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                    <a href="#">Separated link</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label  text-left"> 群发类型 </label>
+        <div class="btn-group text-right col-xs-9 ">
+            <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false" style="width:200px;">
+                图文
+                <i class="ace-icon fa fa-angle-down icon-on-right"></i>
+            </button>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#">图文</a>
+                </li>
+
+                <li>
+                    <a href="#">图片</a>
+                </li>
+
+                <li>
+                    <a href="#">文字</a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                    <a href="#">语音</a>
+                </li>
+                <li>
+                    <a href="#">视频</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="wysiwyg-editor" id="editor1"></div>
+    </div>
+   
+
+    <div class="form-group col-xs-9 pull-right">
+
+        <button type="button" class="btn btn-primary">群发</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">预览</button>
+    </div>
+</div>
+
+
+<script src="~/assets/js/jquery.hotkeys.index.min.js"></script>
+<script src="~/assets/js/bootstrap-wysiwyg.min.js"></script>
+<script src="~/assets/js/bootbox.js"></script>
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; ace scripts &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<script src="~/assets/js/ace-elements.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        function showErrorAlert(reason, detail) {
+            var msg = '';
+            if (reason === 'unsupported-file-type') { msg = "Unsupported format " + detail; }
+            else {
+                //console.log("error uploading file", reason, detail);
+            }
+            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+        }
+
+        //$('#editor1').ace_wysiwyg();//this will create the default editor will all buttons
+
+        //but we want to change a few buttons colors for the third style
+        $('#editor1').ace_wysiwyg({
+            toolbar:
+                [
+                    'font',
+                    null,
+                    'fontSize',
+                    null,
+                    { name: 'bold', className: 'btn-info' },
+                    { name: 'italic', className: 'btn-info' },
+                    { name: 'strikethrough', className: 'btn-info' },
+                    { name: 'underline', className: 'btn-info' },
+                    null,
+                    { name: 'insertunorderedlist', className: 'btn-success' },
+                    { name: 'insertorderedlist', className: 'btn-success' },
+                    { name: 'outdent', className: 'btn-purple' },
+                    { name: 'indent', className: 'btn-purple' },
+                    null,
+                    { name: 'justifyleft', className: 'btn-primary' },
+                    { name: 'justifycenter', className: 'btn-primary' },
+                    { name: 'justifyright', className: 'btn-primary' },
+                    { name: 'justifyfull', className: 'btn-inverse' },
+                    null,
+                    { name: 'createLink', className: 'btn-pink' },
+                    { name: 'unlink', className: 'btn-pink' },
+                    null,
+                    { name: 'insertImage', className: 'btn-success' },
+                    null,
+                    'foreColor',
+                    null,
+                    { name: 'undo', className: 'btn-grey' },
+                    { name: 'redo', className: 'btn-grey' }
+                ],
+            'wysiwyg': {
+                fileUploadError: showErrorAlert
+            }
+        }).prev().addClass('wysiwyg-style2');
+
+
+    })
+
+    //$(function () {
+    //    function initToolbarBootstrapBindings() {
+    //        var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+    //            'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+    //            'Times New Roman', 'Verdana'],
+    //            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+    //        $.each(fonts, function (idx, fontName) {
+    //            fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
+    //        });
+    //        $('a[title]').tooltip({ container: 'body' });
+    //        $('.dropdown-menu input').click(function () { return false; })
+    //            .change(function () { $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle'); })
+    //            .keydown('esc', function () { this.value = ''; $(this).change(); });
+
+    //        $('[data-role=magic-overlay]').each(function () {
+    //            var overlay = $(this), target = $(overlay.data('target'));
+    //            overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+    //        });
+    //        $('#voiceBtn').hide();
+    //        // if ("onwebkitspeechchange"  in document.createElement("input")) {
+    //        //   var editorOffset = $('#editor').offset();
+    //        //   $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+    //        // } else {
+    //        //   $('#voiceBtn').hide();
+    //        // }
+    //    };
+    //    initToolbarBootstrapBindings();
+    //    $('#editor').wysiwyg();
+    //    window.prettyPrint && prettyPrint();
+    //});
+</script>

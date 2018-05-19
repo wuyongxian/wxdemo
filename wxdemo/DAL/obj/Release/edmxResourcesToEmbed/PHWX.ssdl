@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PHWXModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="subscriber">
+    <Key>
+      <PropertyRef Name="openid" />
+    </Key>
+    <Property Name="openid" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="subscribe" Type="bit" Nullable="false" />
+    <Property Name="nickname" Type="nvarchar" MaxLength="50" />
+    <Property Name="sex" Type="nvarchar" MaxLength="50" />
+    <Property Name="city" Type="nvarchar" MaxLength="50" />
+    <Property Name="country" Type="nvarchar" MaxLength="50" />
+    <Property Name="province" Type="nvarchar" MaxLength="50" />
+    <Property Name="strlanguage" Type="nvarchar" MaxLength="50" />
+    <Property Name="headimgurl" Type="nvarchar" MaxLength="200" />
+    <Property Name="subscribe_time" Type="nvarchar" MaxLength="50" />
+    <Property Name="unionid" Type="nvarchar" MaxLength="50" />
+    <Property Name="groupid" Type="nvarchar" MaxLength="50" />
+    <Property Name="tagid_list" Type="nvarchar" MaxLength="50" />
+    <Property Name="subscribe_scene" Type="nvarchar" MaxLength="50" />
+    <Property Name="qr_scene" Type="nvarchar" MaxLength="50" />
+    <Property Name="qr_scene_str" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserGroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="sName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="sCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="remark" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="numstate" Type="bit" Nullable="false" />
+    <Property Name="dtCreate" Type="datetime" />
+    <Property Name="dtUpdate" Type="datetime" />
+    <Property Name="sort" Type="int" />
+  </EntityType>
+  <EntityType Name="UserMenu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="ParentID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="sName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="sTag" Type="nvarchar" MaxLength="50" />
+    <Property Name="sUrl" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="sIconUrl" Type="nvarchar" MaxLength="200" />
+    <Property Name="remark" Type="nvarchar" MaxLength="200" />
+    <Property Name="sort" Type="int" Nullable="false" />
+    <Property Name="numstate" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserMenuAuthority">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="UserGroupID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="UserMenuID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="sAuthority" Type="nvarchar" MaxLength="50" />
+    <Property Name="isDefaultForm" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserOperateLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="dtLoginIn" Type="datetime" />
+    <Property Name="dtLoginOut" Type="datetime" />
+    <Property Name="sIpAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="sTimeLength" Type="nvarchar" MaxLength="50" />
+    <Property Name="remark" Type="nvarchar" MaxLength="50" />
+    <Property Name="numstate" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="UserGroupID" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="sRealName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="sLoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="sPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="sHeaderPhoto" Type="nvarchar" MaxLength="200" />
+    <Property Name="sPhoneNO" Type="nvarchar" MaxLength="50" />
+    <Property Name="sAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="sGender" Type="int" />
+    <Property Name="remark" Type="nvarchar" MaxLength="200" />
+    <Property Name="numstate" Type="bit" Nullable="false" />
+    <Property Name="dtCreate" Type="datetime" />
+    <Property Name="dtUpdate" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="PHWXModelStoreContainer">
+    <EntitySet Name="subscriber" EntityType="Self.subscriber" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserMenu" EntityType="Self.UserMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserMenuAuthority" EntityType="Self.UserMenuAuthority" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserOperateLog" EntityType="Self.UserOperateLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

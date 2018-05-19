@@ -1,0 +1,102 @@
+﻿@model wxweb.Models.UserGroup
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/UserGroup/Index">产品类型</a></li>
+        <li class="active">新建</li>
+    </ol>
+
+    <form id="form1">
+        <div class="container">
+           
+            <div class="row">
+                <div class="col-md-2 col-sm-2 text-right">
+                    <span>名称</span>
+                </div>
+                <div class="col-md-10 col-sm-10 text-left">
+                    <input type="text" class="form-control" placeholder="请输入用户组名称" name="sName" />
+                    @*@Html.EditorFor(item => item.name)*@
+                </div>
+                <div class="col-md-10 col-sm-10 text-left">
+                    <input type="text" class="form-control" placeholder="请输入用户组代码" name="sCode" />
+                    @*@Html.EditorFor(item => item.name)*@
+                </div>
+                <div class="col-md-2 col-sm-2 text-right">
+                    <span>描述</span>
+                </div>
+                <div class="col-md-10 col-sm-10 text-left">
+                    <textarea name="remark" class="form-control" placeholder="请输入类型说明"></textarea>
+                    @*@Html.EditorFor(item => item.remark)*@
+                </div>
+                <div class="col-md-2 col-sm-2 text-right">
+                    排序
+                </div>
+                <div class="col-md-10 col-sm-10 text-left">
+                    <input type="number" name="sort" class="form-control" placeholder="请输入排序序号" value="1" />
+                    @*@Html.EditorFor(item => item.numsort)*@
+                </div>
+                <div class="col-md-2 col-sm-2 text-right">
+                    状态
+                </div>
+                <div class="col-md-10 col-sm-10 text-left">
+                    <label class="radio-inline">
+                        <input type="radio" name="numstate" id="optionsRadios1" value="1" checked="checked">
+                        启用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="numstate" id="optionsRadios2" value="0">
+                        禁用
+                    </label>
+
+                </div>
+                <div class="col-md-2 col-sm-2 text-right">
+
+                </div>
+                <div class="col-md-10 col-sm-10 text-left">
+                    <input type="button" id="btnSubmit" class="btn btn-block btn-primary" value="提交" />
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').click(function () {
+                addData();
+            })
+        })
+
+        function addData() {
+
+            $.post("/Admin/UserGroup/Create", $('#form1').serialize(),
+                function (data) {
+                    if (data.state) {
+                        window.location.href = '/Admin/UserGroup/Index';
+                    } else {
+                        alert('error');
+                        //CM.showMsg(data.msg);
+                        //alert(data.msg);
+                    }
+
+            })
+
+            //$.ajax({
+            //    url: '/Admin/producttype/Create',
+            //    type: 'post',
+            //    contentType: 'application/json',
+            //    async: true,
+            //    data: $('#form1').serialize(),
+            //    dataType: 'json',
+            //    beforeSend: function (r) { },
+            //    success: function (r) { console.log('ok'); },
+            //    error: function (r) { console.log('error'); }
+            //});
+        }
+
+    </script>
+</div>
+

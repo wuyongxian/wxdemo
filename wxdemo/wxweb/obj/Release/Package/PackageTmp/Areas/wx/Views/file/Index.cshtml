@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/Utility/dropzone/dist/dropzone.css" />
+<script type="text/javascript" src="~/Utility/dropzone/dist/dropzone.js"></script>
+<!--class="dropzone" 使用dropzone自带的样式 样式在引用的CSS中-->
+
+<div class="dropzone"  id="my-dropzone" style="width:135px;height:150px;padding:0px;"></div>
+<div>
+    <!--上传按钮，提供多张图片一次性上传的功能-->
+    <button type="submit" id="submit-all" disabled="disabled">上传</button>
+</div>
+
+<script>
+        //Dropzone的初始化，myDropzone为form的id
+        Dropzone.options.myDropzone = {
+
+            //指定上传图片的路径
+           // url: "@Url.Action("FileUpload", "file")",
+            url: '/wx/file/FileUpload',
+            method: "post",  //也可用put
+            paramName: "file", //默认为file
+            maxFiles: 1,//一次性上传的文件数量上限
+            maxFilesize: 2, //文件大小，单位：MB
+            acceptedFiles: ".jpg,.gif,.png,.jpeg", //上传的类型
+            addRemoveLinks: true, //添加上传取消和删除预览图片的链接，默认不添加
+            autoProcessQueue: false,//关闭自动上传功能，默认会true会自动上传
+            uploadMultiple: false,//允许上传多个照片
+            parallelUploads: 1,//每次上传的最多文件数，经测试默认为2，坑啊,记得修改web.config 限制上传文件大小的节
+            dictDefaultMessage: '拖动文件至此或者点击上传',
+            dictMaxFilesExceeded: "您最多只能上传1个文件！",
+            dictResponseError: '文件上传失败!',
+            dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+            dictFallbackMessage: "浏览器不受支持",
+            dictFileTooBig: "文件过大上传文件最大支持.",
+            dictRemoveLinks: "删除",
+            dictCancelUpload: "取消",
+            init: function () {
+                var submitButton = document.querySelector("#submit-all")
+                myDropzone = this; // closure
+
+                //为上传按钮添加点击事件
+                submitButton.addEventListener("click", function () {
+                    //手动上传所有图片
+                    myDropzone.processQueue();
+                });
+
+                //当添加图片后的事件，上传按钮恢复可用
+                this.on("addedfile", function () {
+                    $("#submit-all").removeAttr("disabled");
+                });
+
+                //当上传完成后的事件，接受的数据为JSON格式
+                this.on("complete", function (data) {
+                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                        var res = eval('(' + data.xhr.responseText + ')');
+                        var msg;
+                        if (res.Result) {
+                            msg = "恭喜，已成功上传" + res.Count + "张照片！";
+                        }
+                        else {
+                            msg = "上传失败，失败的原因是：" + res.Message;
+                        }
+                        $("#message").text(msg);
+                        $("#dialog").dialog("open");
+                    }
+                });
+
+                //删除图片的事件，当上传的图片为空时，使上传按钮不可用状态
+                this.on("removedfile", function () {
+                    if (this.getAcceptedFiles().length === 0) {
+                        $("#submit-all").attr("disabled", true);
+                    }
+                });
+            }
+        };
+</script>
+

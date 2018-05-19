@@ -1,0 +1,394 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xs-6">
+
+        <div class="modal-dialog" style="width:100%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <button class="btn btn-xs btn-success" onclick="item_Create('')">
+                            <i class="ace-icon fa fa-plus-circle bigger-130"></i>
+                            新建根目录
+                        </button>
+                        <button class="btn btn-xs btn-success" onclick="loadMenu()">
+                            <i class="ace-icon fa fa-refresh  bigger-130"></i>
+
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+
+                    <div id="divMenu"></div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+
+    </div>
+    <div class="col-xs-6">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <ul id="ul_breadcrumb" class="breadcrumb">
+                        <li class="liroot">
+                            <i class="icon-only ace-icon fa fa-align-left"></i>
+                            <span>根目录</span>
+                        </li>
+
+                    </ul><!-- /.breadcrumb -->
+                </div>
+                <div class="modal-body">
+
+                    <form id="form1" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="sName"> 名称 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="ID" name="ID" style="display:none;" />
+                                <input type="text" id="ParentID" name="ParentID" style="display:none;" />
+
+                                <input type="text" id="sName" name="sName" placeholder="请输入菜单名称" class="col-xs-10 ">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="sCode"> 代码 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="sTag" name="sTag" placeholder="请输入菜单代码" class="col-xs-10 ">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="sUrl"> 路径 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="sUrl" name="sUrl" placeholder="请输入菜单路径" class="col-xs-10 ">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="sIconUrl"> 图标路径 </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="sIconUrl" name="sIconUrl" placeholder="请输入菜单图标路径" class="col-xs-10 ">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="numstate"> 状态 </label>
+
+                            <div class="col-sm-9">
+                                <label>
+                                    <input id="numstate" name="numstate" class="ace ace-switch ace-switch-6" type="checkbox" checked="checked">
+                                    <span class="lbl" for="numstate"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="sort"> 排序 </label>
+
+                            <div class="col-sm-9">
+                                <input type="number" value="1" id="sort" name="sort" size="16">
+
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="remark"> 描述 </label>
+
+                            <div class="col-sm-9">
+                                <textarea id="remark" name="remark" placeholder="请输入对菜单的描述" class="form-control"></textarea>
+                                @*<input type="password" id="remark" name="remark" placeholder="Password" class="form-control">*@
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9" style="text-align:left;">
+                            <a tabindex="0" id="btnSubmit" class="btn btn-primary" role="button"
+                               title="操作提示" data-content="">
+                                提交更改
+                            </a>
+                            @*<button id="btnSubmit" type="button" class="btn btn-primary">提交更改</button>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<script>
+
+    var tag_ParentID = '';//父菜单ID
+    var tag_ID = '';//当前菜单ID
+    var tag_ActionType = 'Create';//action名称（Create/Update）
+    $(function () {
+        loadMenu();
+        $("#btnSubmit").click(function () {
+            frmSubmit();
+        })
+    })
+
+    function loadMenu() {
+        $.post('/Admin/UserMenu/getList', '',
+            function (r) {
+                getMenuP(r);
+
+                $('.tabP,.tabC').hover(function () {
+                    $(this).css('background', '#eee');
+                }, function () {
+                    $(this).css('background', '#fff');
+                })
+            })
+    }
+
+    function getMenuP(itemsAll) {
+        var strhtml = '';
+
+        var items_P = getMenuC_array("", itemsAll);//所有的一级菜单信息
+        for (var i = 0; i < items_P.length; i++) {
+            var item_P = items_P[i];
+            var ParentID = item_P.ID;
+            var items_C = getMenuC_array(ParentID, itemsAll);//当前一级菜单下的二级菜单
+            var isFold = false;
+            if (items_C.length > 0) {//有子菜单
+                isFold = true;
+            }
+            var tabClass = 'tabP';
+            strhtml += getMenuItem(item_P, isFold, tabClass);
+
+            if (items_C.length > 0) {//有子菜单
+                //var item = items_C[0];
+                strhtml += getMenuC_html(item_P.ID, items_C, itemsAll);
+            } else {//无子菜单
+
+            }
+        }
+        $('#divMenu').html(strhtml);
+
+    }
+
+    //获取子菜单数据
+    function getMenuC_array(ParentID, items) {
+        return items.filter(function (e) {
+            return e.ParentID == ParentID;
+        });
+    }
+
+    //展示子菜单页面
+    function getMenuC_html(ParentID, items, itemsAll) {
+        var strhtml = ''
+        strhtml += ' <div id="div_' + ParentID + '" class="divMenu" style="display: none;">';
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var ParentID = item.ID;
+            var items_C = getMenuC_array(ParentID, itemsAll);
+            var isFold = false;
+            if (items_C.length > 0) {//有子菜单
+                isFold = true;
+            }
+            var tabClass = 'tabC';
+            strhtml += getMenuItem(item, isFold, tabClass);
+
+
+            if (items_C.length > 0) {//有子菜单
+                //var item = items_C[0];
+                strhtml += getMenuC_html(item.ID, items_C, itemsAll);
+            } else {//无子菜单
+
+            }
+        }
+        strhtml += '</div>';
+        return strhtml;
+
+    }
+
+    function getMenuItem(item, isFold, tabClass) {
+        var strhtml = '';
+        strhtml += '<table class="' + tabClass + '" id="tabMenu_' + item.ID + '">';
+        strhtml += '  <tbody> <tr>';
+        if (isFold > 0) {
+            strhtml += '         <td style="width:40px;"> <img id="img_' + item.ID + '" class="img_menu" alt="Open"  src="/images/icon/menuOpen.png"  onclick="OpenChildMenu(\'' + item.ID + '\',\'img_' + item.ID + '\')"></td>';
+        } else {
+            strhtml += '         <td style="width:40px;"></td>';
+        }
+
+        strhtml += '           <td style="width:40px;"><span class="numsort">[' + item.sort + ']</span></td>'
+        strhtml += '           <td><span>' + item.sName + '</span></td>'
+        strhtml += '        <td style="width:110px;"><span>'
+        strhtml += ' <button class="btn btn-xs btn-success" onclick="item_Create(\'' + item.ID + '\')"><i class="ace-icon fa fa-plus-circle bigger-130" ></i ></button >';
+        strhtml += ' <button class="btn btn-xs btn-primary" onclick="item_Update(\'' + item.ID + '\')"><i class="ace-icon fa fa-pencil-square-o bigger-130" ></i ></button >';
+        strhtml += ' <button class="btn btn-xs btn-danger" onclick="item_Delete(\'' + item.ID + '\')"><i class="ace-icon fa fa-trash-o bigger-130" ></i ></button >';
+        strhtml += '        </span></td>';
+        strhtml += '   </tr> </tbody> </table>';
+        return strhtml;
+    }
+
+    //获取当前菜单的路径
+    function getmenupath(ID) {
+        if (ID == '') {
+            tag_ParentID = '';
+            tag_ID = '';
+            $('#ul_breadcrumb .active').remove();
+        }
+        else {
+            $.post('/Admin/UserMenu/getMenuPath', { id: ID },
+                function (r) {
+                    if (r.length == 1) {//当前目录为根目录
+                        tag_ParentID = '';
+                        tag_ID = r[0].ID;
+                    } else {
+                        tag_ParentID = r[r.length - 1].ParentID;
+                        tag_ID = r[r.length - 1].ID;
+                    }
+                    $('#ul_breadcrumb .active').remove();
+                    for (var i = 0; i < r.length; i++) {
+                        $('#ul_breadcrumb').append('<li class="active">' + r[i].sName + '</li>');
+                    }
+
+                });
+        }
+
+    }
+
+    /*
+       PID:父节点id
+       imgID：父节点左侧图片的id
+       tabID：父节点table的id
+       numLevel:这是第几级菜单
+       */
+    function OpenChildMenu(PID, imgID, tabID, numLevel) {
+
+        if ($('#' + imgID).attr('alt') == "Open") {
+            $('#' + imgID).attr('alt', 'Close');
+            $('#' + imgID).attr('src', '/images/icon/menuClose.png');
+            $('#div_' + PID).slideDown("normal");
+
+        } else {
+            $('#' + imgID).attr('alt', 'Open');
+            $('#' + imgID).attr('src', '/images/icon/menuOpen.png');
+            $('#div_' + PID).slideUp("normal");
+        }
+    }
+
+    function item_Create(ParentID) {
+        tag_ActionType = 'Create';
+        getmenupath(ParentID);
+        $('#ParentID').val(ParentID);
+        getItem('');
+    }
+
+    function item_Update(ID) {
+        tag_ActionType = 'Update';
+        getmenupath(ID);
+        getItem(ID);
+
+    }
+
+    function item_Delete(ID) {
+        var msg = '您确认要删除此菜单吗？';
+        CM.showConfirm(msg, function (obj) {
+            if (obj == 'yes') {
+                tag_ActionType = 'Delete';
+                var url = '/Admin/UserMenu/' + tag_ActionType;
+                var data = { 'id': ID };
+                $.post(url, data,
+                    function (r) {
+                        if (r.state) {
+                            loadMenu();//重新加载菜单
+                            CM.showMsg(r.msg);
+                        } else {
+                            CM.showMsg(r.msg);
+                        }
+                    });
+            } else {
+                //console.log('你点击了取消！');
+            }
+
+        });
+
+    }
+
+
+
+    function getItem(id) {
+        if (id == '') {//新建模式
+            item_id = '';
+            $('#ID').val('');
+
+            $('#sName').val('');
+            $('#sTag').val('');
+            var dom_numstate = document.getElementById('numstate');
+            dom_numstate.checked = true;
+            $('#sort').val('1');
+            $('#sUrl').val('');
+            $('#sIconUrl').val('');
+            $('#remark').val('');
+        }
+        else {//编辑模式
+            item_id = id;
+            $('#ID').val(id);
+
+            $.post("/Admin/UserMenu/getItem", { id: id },
+                function (r) {
+                    $('#ParentID').val(r.ParentID);
+                    $('#sName').val(r.sName);
+                    $('#sTag').val(r.sTag);
+                    if (r.numstate) {
+                        var dom_numstate = document.getElementById('numstate');
+                        dom_numstate.checked = true;
+                    } else {
+                        var dom_numstate = document.getElementById('numstate');
+                        dom_numstate.checked = false;
+                    }
+                    $('#sort').val(r.sort);
+                    $('#sUrl').val(r.sUrl);
+                    $('#sIconUrl').val(r.sIconUrl);
+                    $('#remark').val(r.remark);
+
+                })
+        }
+
+    }
+
+    function frmSubmit() {
+
+        var url = '/Admin/UserMenu/' + tag_ActionType;
+        var data = $('#form1').serialize();
+
+        $.post(url, data,
+            function (r) {
+                if (r.state) {
+                    $('#btnSubmit').attr('data-content', '提交成功!');
+                    $('#btnSubmit').popover('show')
+                    setTimeout(function () {
+                        $('#btnSubmit').popover('destroy');
+                    }, 2000)
+                    //window.location.href = '/Admin/UserGroup/Index';
+                } else {
+                    CM.showMsg('提交数据失败!');
+                }
+            });
+    };
+
+
+
+</script>
+
+

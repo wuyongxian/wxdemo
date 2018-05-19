@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .test {
+    margin:10px 0px;
+    }
+</style>
+
+<h2>微信 test</h2>
+<div class="test">
+    <p>result message：</p>
+    <textarea id="result" name="result" placeholder="返回结果" class="form-control" style="width:800px; height:200px;"></textarea>
+</div>
+<div class="test"> 
+    <button id="btn_token" class="btn btn-info">获取token </button>
+</div>
+
+<div class="test">
+    <button id="btn_ServerIP" class="btn btn-info">获取服务器IP </button>
+</div>
+
+
+<div class="test">
+    <button id="btn_GetCustomMenu" class="btn btn-info">查询自定义菜单 </button>
+    <button id="btn_CreateCustomMenu" class="btn btn-info">创建自定义菜单 </button>
+    <button id="btn_DeleteCustomMenu" class="btn btn-info">删除自定义菜单 </button>
+</div>
+
+
+<div class="test">
+    <button id="btn_current_autoreply" class="btn btn-info">获取公众号的自动回复规则 </button>
+</div>
+
+
+<script type="text/javascript">
+    var item_id = '';//表id
+    $(function () {
+        $('#btn_token').click(function () {
+            fun_token();
+        });
+        $('#btn_ServerIP').click(function () {
+            fun_ServerIP();
+        });
+
+        $('#btn_GetCustomMenu').click(function () {
+            getPostData('/wx/test/GetCustomMenu', '');
+        });
+
+        $('#btn_CreateCustomMenu').click(function () {
+            
+            getPostData('/wx/test/CreateCustomMenu', '');
+        });
+
+        $('#btn_DeleteCustomMenu').click(function () {
+            getPostData('/wx/test/DeleteCustomMenu', '');
+        });
+
+        $('#btn_current_autoreply').click(function () {
+
+            getPostData('/wx/test/get_current_autoreply', '');
+        })
+    })
+
+    function fun_token() {
+        $.post("/wx/test/getToken", '',
+            function (r) {
+                if (r.state) {
+                    //window.location.href = '/admin/user/index';
+                    $('#result').val(r.token);
+                } else {
+                    $('#result').val(r.msg);
+                    //cm.showmsg('删除数据失败!');
+                }
+            });
+    }
+
+
+    function fun_ServerIP() {
+        $.post("/wx/test/getServerIP", '',
+            function (r) {
+                if (r.state) {
+                    //window.location.href = '/admin/user/index';
+                    $('#result').val(r.msg);
+                } else {
+                    $('#result').val(r.msg);
+                    //cm.showmsg('删除数据失败!');
+                }
+            });
+    }
+
+    function getPostData(url,data) {
+        $.post(url, data,
+            function (r) {
+                if (r.state) {
+                    //window.location.href = '/admin/user/index';
+                    $('#result').val(r.msg);
+                } else {
+                    $('#result').val(r.msg);
+                    //cm.showmsg('删除数据失败!');
+                }
+            });
+    }
+
+    function GetData(url, data) {
+        $.get(url, data,
+            function (r) {
+                if (r.state) {
+                    //window.location.href = '/admin/user/index';
+                    $('#result').val(r.msg);
+                } else {
+                    $('#result').val(r.msg);
+                    //cm.showmsg('删除数据失败!');
+                }
+            });
+    }
+</script>

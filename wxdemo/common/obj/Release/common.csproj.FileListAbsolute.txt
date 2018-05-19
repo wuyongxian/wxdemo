@@ -1,0 +1,17 @@
+C:\Users\wyx\Desktop\weixin-master\sohovan.com.wxweb\sohovan.com.common\bin\Release\sohovan.com.common.dll
+C:\Users\wyx\Desktop\weixin-master\sohovan.com.wxweb\sohovan.com.common\bin\Release\sohovan.com.common.pdb
+C:\Users\wyx\Desktop\weixin-master\sohovan.com.wxweb\sohovan.com.common\obj\Release\common.csproj.CoreCompileInputs.cache
+C:\Users\wyx\Desktop\weixin-master\sohovan.com.wxweb\sohovan.com.common\obj\Release\sohovan.com.common.dll
+C:\Users\wyx\Desktop\weixin-master\sohovan.com.wxweb\sohovan.com.common\obj\Release\sohovan.com.common.pdb
+C:\Users\wyx\Desktop\wxweb\common\bin\Release\sohovan.com.common.dll
+C:\Users\wyx\Desktop\wxweb\common\bin\Release\sohovan.com.common.pdb
+C:\Users\wyx\Desktop\wxweb\common\obj\Release\common.csprojResolveAssemblyReference.cache
+C:\Users\wyx\Desktop\wxweb\common\obj\Release\common.csproj.CoreCompileInputs.cache
+C:\Users\wyx\Desktop\wxweb\common\obj\Release\sohovan.com.common.dll
+C:\Users\wyx\Desktop\wxweb\common\obj\Release\sohovan.com.common.pdb
+F:\wxdemo\common\obj\Release\common.csprojResolveAssemblyReference.cache
+F:\wxdemo\common\obj\Release\common.csproj.CoreCompileInputs.cache
+F:\wxdemo\common\bin\Release\common.dll
+F:\wxdemo\common\bin\Release\common.pdb
+F:\wxdemo\common\obj\Release\common.dll
+F:\wxdemo\common\obj\Release\common.pdb

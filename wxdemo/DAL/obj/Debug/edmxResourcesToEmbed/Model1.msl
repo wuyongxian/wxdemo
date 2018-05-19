@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PHWXModelStoreContainer" CdmEntityContainer="PHWXEntities">
+    <EntitySetMapping Name="subscribers">
+      <EntityTypeMapping TypeName="PHWXModel.subscriber">
+        <MappingFragment StoreEntitySet="subscriber">
+          <ScalarProperty Name="openid" ColumnName="openid" />
+          <ScalarProperty Name="subscribe" ColumnName="subscribe" />
+          <ScalarProperty Name="nickname" ColumnName="nickname" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="strlanguage" ColumnName="strlanguage" />
+          <ScalarProperty Name="headimgurl" ColumnName="headimgurl" />
+          <ScalarProperty Name="subscribe_time" ColumnName="subscribe_time" />
+          <ScalarProperty Name="unionid" ColumnName="unionid" />
+          <ScalarProperty Name="groupid" ColumnName="groupid" />
+          <ScalarProperty Name="tagid_list" ColumnName="tagid_list" />
+          <ScalarProperty Name="subscribe_scene" ColumnName="subscribe_scene" />
+          <ScalarProperty Name="qr_scene" ColumnName="qr_scene" />
+          <ScalarProperty Name="qr_scene_str" ColumnName="qr_scene_str" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGroups">
+      <EntityTypeMapping TypeName="PHWXModel.UserGroup">
+        <MappingFragment StoreEntitySet="UserGroup">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="sName" ColumnName="sName" />
+          <ScalarProperty Name="sCode" ColumnName="sCode" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="numstate" ColumnName="numstate" />
+          <ScalarProperty Name="dtCreate" ColumnName="dtCreate" />
+          <ScalarProperty Name="dtUpdate" ColumnName="dtUpdate" />
+          <ScalarProperty Name="sort" ColumnName="sort" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMenus">
+      <EntityTypeMapping TypeName="PHWXModel.UserMenu">
+        <MappingFragment StoreEntitySet="UserMenu">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="sName" ColumnName="sName" />
+          <ScalarProperty Name="sTag" ColumnName="sTag" />
+          <ScalarProperty Name="sUrl" ColumnName="sUrl" />
+          <ScalarProperty Name="sIconUrl" ColumnName="sIconUrl" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="sort" ColumnName="sort" />
+          <ScalarProperty Name="numstate" ColumnName="numstate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMenuAuthorities">
+      <EntityTypeMapping TypeName="PHWXModel.UserMenuAuthority">
+        <MappingFragment StoreEntitySet="UserMenuAuthority">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserMenuID" ColumnName="UserMenuID" />
+          <ScalarProperty Name="sAuthority" ColumnName="sAuthority" />
+          <ScalarProperty Name="isDefaultForm" ColumnName="isDefaultForm" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserOperateLogs">
+      <EntityTypeMapping TypeName="PHWXModel.UserOperateLog">
+        <MappingFragment StoreEntitySet="UserOperateLog">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="dtLoginIn" ColumnName="dtLoginIn" />
+          <ScalarProperty Name="dtLoginOut" ColumnName="dtLoginOut" />
+          <ScalarProperty Name="sIpAddress" ColumnName="sIpAddress" />
+          <ScalarProperty Name="sTimeLength" ColumnName="sTimeLength" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="numstate" ColumnName="numstate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="PHWXModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />
+          <ScalarProperty Name="sRealName" ColumnName="sRealName" />
+          <ScalarProperty Name="sLoginName" ColumnName="sLoginName" />
+          <ScalarProperty Name="sPassword" ColumnName="sPassword" />
+          <ScalarProperty Name="sHeaderPhoto" ColumnName="sHeaderPhoto" />
+          <ScalarProperty Name="sPhoneNO" ColumnName="sPhoneNO" />
+          <ScalarProperty Name="sAddress" ColumnName="sAddress" />
+          <ScalarProperty Name="sGender" ColumnName="sGender" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="numstate" ColumnName="numstate" />
+          <ScalarProperty Name="dtCreate" ColumnName="dtCreate" />
+          <ScalarProperty Name="dtUpdate" ColumnName="dtUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wxmsmResponses">
+      <EntityTypeMapping TypeName="PHWXModel.wxmsmResponse">
+        <MappingFragment StoreEntitySet="wxmsmResponse">
+          <ScalarProperty Name="numstate" ColumnName="numstate" />
+          <ScalarProperty Name="sort" ColumnName="sort" />
+          <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="PicUrl" ColumnName="PicUrl" />
+          <ScalarProperty Name="msgDescription" ColumnName="msgDescription" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="msgContent" ColumnName="msgContent" />
+          <ScalarProperty Name="eventKey" ColumnName="eventKey" />
+          <ScalarProperty Name="resMessageType" ColumnName="resMessageType" />
+          <ScalarProperty Name="eventType" ColumnName="eventType" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAC2B29F-D6F4-446E-9076-E7FC3EF25DF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wxPlatForm</RootNamespace>
+    <AssemblyName>wxPlatForm</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="baseApi\Articles.cs" />
+    <Compile Include="baseApi\BaseMessage.cs" />
+    <Compile Include="baseApi\BaseMsg.cs" />
+    <Compile Include="baseApi\CommonEventMessage.cs" />
+    <Compile Include="baseApi\CommonMessage.cs" />
+    <Compile Include="baseApi\EnterParam.cs" />
+    <Compile Include="baseApi\EventMessage.cs" />
+    <Compile Include="baseApi\EventType.cs" />
+    <Compile Include="baseApi\MsgType.cs" />
+    <Compile Include="baseApi\Music.cs" />
+    <Compile Include="baseApi\Picture.cs" />
+    <Compile Include="baseApi\Video.cs" />
+    <Compile Include="baseApi\VqiRequest.cs" />
+    <Compile Include="BasicApi.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="crypt\Cryptography.cs" />
+    <Compile Include="crypt\Sample.cs" />
+    <Compile Include="crypt\WXBizMsgCrypt.cs" />
+    <Compile Include="JsApi.cs" />
+    <Compile Include="MenuApi\CreateMenu.cs" />
+    <Compile Include="MessageFactory.cs" />
+    <Compile Include="OAuth\OAuthAccess_Token.cs" />
+    <Compile Include="OAuth\OAuthUser.cs" />
+    <Compile Include="OAuth\wechatOAuth.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QrCodeApi.cs" />
+    <Compile Include="ReceiveMessage.cs" />
+    <Compile Include="ResponseMessage.cs" />
+    <Compile Include="UserApi\Oauth2.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="wxOAuth.cs" />
+    <Compile Include="WxRequest.cs" />
+    <Compile Include="wxtoken\Access_token.cs" />
+    <Compile Include="wxtoken\checkWX.cs" />
+    <Compile Include="wxtoken\wxAccess_token.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\common\common.csproj">
+      <Project>{c9e915a2-c87d-4f71-bb9d-a6ef3a646d7b}</Project>
+      <Name>common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{bb2bf0df-aadf-41ce-b10b-eb5355eb882d}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="crypt\Readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,478 @@
+﻿@model  IEnumerable<DAL.wxmsmResponse>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/Utility/dropzone/dist/dropzone.css" />
+<script type="text/javascript" src="~/Utility/dropzone/dist/dropzone.js"></script>
+<ul id="inbox-tabs" class="inbox-tabs nav nav-tabs padding-16 tab-size-bigger tab-space-1">
+
+
+    <li class="active" key="text">
+        <a data-toggle="tab" href="#inbox" data-target="inbox" aria-expanded="false">
+            <i class="blue ace-icon fa fa-inbox bigger-130"></i>
+            <span class="bigger-110">关键字回复</span>
+        </a>
+    </li>
+
+    <li class="" key="click">
+        <a data-toggle="tab" href="#sent" data-target="sent" aria-expanded="true">
+            <i class="orange ace-icon fa fa-location-arrow bigger-130"></i>
+            <span class="bigger-110">菜单点击</span>
+        </a>
+    </li>
+
+    <li key="subscribe">
+        <a data-toggle="tab" href="#draft" data-target="draft">
+            <i class="green ace-icon fa fa-pencil bigger-130"></i>
+            <span class="bigger-110">用户关注</span>
+        </a>
+    </li>
+
+</ul>
+
+<div class="widget-box widget-color-blue2">
+    <div class="widget-header">
+        <span>文字消息列表</span>
+
+        <button class="btn btn-xs btn-success" onclick="getItem('')">
+            <i class="ace-icon fa fa-plus-circle bigger-130"></i>
+            添加
+        </button>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main no-padding">
+            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>事件类型</th>
+                        <th>key</th>
+                        <th>图文消息标题</th>
+                        <th>图文消息描述</th>
+                        <th>图片链接</th>
+                        <th>跳转地址</th>
+                        <th>排序</th>
+                        <th>状态</th>
+                        <th>编辑</th>
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="form1" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sName">key </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="ID" name="ID" style="display:none;" />
+                            <input type="text" id="eventType" name="eventType" style="display:none;" />
+                            <input type="text" id="eventKey" name="eventKey" placeholder="请输入关键字" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sCode"> 图文消息标题 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="Title" name="Title" placeholder="请输入图文消息标题" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sCode"> 图文消息描述 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="msgDescription" name="msgDescription" placeholder="请输入图文消息描述" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sCode">
+                            图片链接
+                            <p><small>(建议尺寸：大图360*200，小图200*200)</small></p>
+                        </label>
+                       
+                        <div class="col-sm-4" id="div_Photo">
+                            <img id="img_PicUrl" src="" alt="图片链接" style="width:150px; height:150px;border-radius:20px;" />
+                            <input type="text" id="PicUrl" name="PicUrl" style="display:none;" />
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="dropzone" id="my-dropzone" style="width:135px;height:150px;padding:0px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sCode"> 图片链接 </label>
+
+                        <div class="col-sm-9">
+
+                            @*<input type="text" id="PicUrl" name="PicUrl" placeholder="请输入图片链接地址" class="col-xs-10 col-sm-5">*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sCode"> 跳转地址 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" id="Url" name="Url" placeholder="请输入跳转地址" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sName"> 状态 </label>
+
+                        <div class="col-sm-9">
+                            <label>
+                                <input id="numstate" name="numstate" class="ace ace-switch ace-switch-6" type="checkbox" checked="checked">
+                                <span class="lbl" for="numstate"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="sCode"> 排序 </label>
+
+                        <div class="col-sm-9">
+                            <input type="number" value="1" id="sort" name="sort" size="16">
+
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+<script type="text/javascript">
+    var item_id = '';//表id
+    var eventType = 'text';//关键字类型
+    $(function () {
+        $('#eventType').val('text');//为事件类型设置初始值
+        getItemList();
+        $('.modal-dialog .btn-primary').click(function () {
+            submitItem();
+        });
+        $('#inbox-tabs li').each(function (e) {
+            $(this).click(function () {
+                eventType = $(this).attr('key');
+                $('#eventType').val(eventType);
+                getItemList();
+            });
+        });
+    })
+
+    function getItemList() {
+        $('#dynamic-table tbody').html('');
+        var url = '/wx/resMsg_news/getItemList';
+        var data = { eventType, eventType };
+        $.post(url, data,
+            function (r) {
+                if (r.length == 0) {
+                    return false;
+                }
+                var jsondata = r;
+                var strhtml = '';
+                var anchor = 0;//标尺
+                var rowspan = 1;//一个关键字有多条消息
+                var trbgcolor = "#f5f5f5";
+
+                for (var i = 0; i < jsondata.length;) {
+
+                    var anchor_start = anchor;
+                    var eventKey_anchor = jsondata[anchor].eventKey;
+                    if (anchor_start >= jsondata.length - 1) {
+                        rowspan = 1;
+                        anchor = jsondata.length;
+                    }
+                    else {
+                        for (var j = i + 1; j < jsondata.length; j++) {
+                            if (j == jsondata.length - 1) {
+
+                                if (jsondata[j].eventKey != eventKey_anchor) {
+                                    rowspan = parseInt(j) - parseInt(i);
+                                    anchor = j;
+                                    break;
+                                }
+                                else {
+                                    rowspan = parseInt(j) - parseInt(i) + 1;
+                                    anchor = j + 1;
+                                    break;
+                                }
+
+                            }
+                            if (jsondata[j].eventKey != eventKey_anchor) {
+                                rowspan = parseInt(j) - parseInt(i);
+                                anchor = j;
+                                break;
+                            }
+                        }
+                    }
+
+                    for (var k = i; k < anchor; k++) {
+                        var numstate = '<span class="label label-sm label-success">启用</span>';
+                        if (!jsondata[k].numstate) {
+                            numstate = '<span class="label label-sm label-warning">禁用</span>';
+                        }
+                        strhtml += '<tr style="background:' + trbgcolor + ';">';
+                        if (k == anchor_start) {
+                            var eventType = '关键字回复';
+                            if (jsondata[anchor_start].eventType == 'subscribe') {
+                                eventType = '用户关注';
+                            }
+                            if (jsondata[anchor_start].eventType == 'click') {
+                                eventType = '菜单点击';
+                            }
+                            strhtml += '    <td rowspan=' + rowspan + ' style="border-bottom:1px solid #aaa;">' + eventType + '</td>';
+                            strhtml += '    <td rowspan=' + rowspan + ' style="border-bottom:1px solid #aaa;">' + jsondata[anchor_start].eventKey + '</td>';
+                        }
+                        if (k == anchor - 1) {
+
+                            strhtml += '    <td style="border-bottom:1px solid #aaa;">' + jsondata[k].Title + '</td>';
+                            strhtml += '    <td style="border-bottom:1px solid #aaa;">' + jsondata[k].msgDescription + '</td>';
+                            //strhtml += '    <td style="border-bottom:1px solid #aaa;">' + jsondata[k].PicUrl + '</td>';
+                            if (CM.isNull(jsondata[k].PicUrl)) {
+                                strhtml += '    <td style="border-bottom:1px solid #aaa;">无</td>';
+                            } else {
+                                strhtml += '    <td style="border-bottom:1px solid #aaa;"><img style="width:90px;height:50px;" src="' + jsondata[k].PicUrl + '"/></td>';
+                            }
+                         
+                            strhtml += '    <td style="border-bottom:1px solid #aaa;">' + jsondata[k].Url + '</td>';
+                            strhtml += '    <td style="border-bottom:1px solid #aaa;">' + jsondata[k].sort + '</td>';
+                            strhtml += '    <td style="border-bottom:1px solid #aaa;">' + numstate + '</td>';
+                            strhtml += '    <td style="border-bottom:1px solid #aaa;"><div class="action-buttons">';
+                            strhtml += '      <a class="green" href="#" onclick="getItem(\'' + jsondata[k].ID + '\')"> <i class="ace-icon fa fa-pencil bigger-130"></i> </a>';
+                            strhtml += '      <a class="green" href="#" onclick="delItem(\'' + jsondata[k].ID + '\')"> <i class="ace-icon fa fa-trash-o bigger-130"></i>  </a>';
+                            strhtml += '     </div></td>';
+                            strhtml += '</tr>'
+                        }else {
+                            strhtml += '    <td>' + jsondata[k].Title + '</td>';
+                            strhtml += '    <td>' + jsondata[k].msgDescription + '</td>';
+                            if (CM.isNull(jsondata[k].PicUrl)) {
+                                strhtml += '    <td style="border-bottom:1px solid #aaa;">无</td>';
+                            } else {
+                                strhtml += '    <td style="border-bottom:1px solid #aaa;"><img style="width:90px;height:50px;" src="' + jsondata[k].PicUrl + '"/></td>';
+                            }
+                           
+                            strhtml += '    <td>' + jsondata[k].Url + '</td>';
+                                strhtml += '    <td>' + jsondata[k].sort + '</td>';
+                                strhtml += '    <td>' + numstate + '</td>';
+                                strhtml += '    <td><div class="action-buttons">';
+                                strhtml += '      <a class="green" href="#" onclick="getItem(\'' + jsondata[k].ID + '\')"> <i class="ace-icon fa fa-pencil bigger-130"></i> </a>';
+                                strhtml += '      <a class="green" href="#" onclick="delItem(\'' + jsondata[k].ID + '\')"> <i class="ace-icon fa fa-trash-o bigger-130"></i>  </a>';
+                                strhtml += '     </div></td>';
+                            }
+
+
+                    }
+                    if (anchor == jsondata.length) {
+                        break;
+                    }
+                    else {
+                        i = anchor;
+                    }
+
+                    if (trbgcolor == '#f5f5f5') {
+                        trbgcolor = 'transparent';
+                    } else {
+                        trbgcolor = '#f5f5f5';
+                    }
+
+                }
+
+                $('#dynamic-table tbody').html('').html(strhtml);
+            });
+    }
+
+    function getItem(id) {
+        //删除已经存在的文件
+        if (!CM.isNull(myDropzone) && myDropzone.files.length != 0) {
+            for (var i = 0; i < myDropzone.files.length; i++) {
+                myDropzone.removeFile(myDropzone.files[0]);
+            }
+        }
+        $('#PicUrl').val('');
+        //$('.dropzone .dz-preview').remove();
+        //Dropzone.options.myDropzone.on("removedfile", function () {
+        //    if (this.getAcceptedFiles().length === 0) {
+        //        //$("#submit-all").attr("disabled", true);
+        //    }
+        //});
+        if (id == '') {//新建模式
+            item_id = '';
+            $('#div_Photo').hide();
+            $('#ID').val('');
+            $('#myModalLabel').html("图文回复消息（新建）");
+            $('#myModal').modal('show');
+        }
+        else {//编辑模式
+            item_id = id;
+            $('#ID').val(id);
+
+            $.post("/wx/resMsg_news/getItem", { id: id },
+                function (r) {
+                    $('#eventKey').val(r.eventKey);
+                    $('#Title').val(r.Title);
+                    $('#msgDescription').val(r.msgDescription);
+
+                    if (!CM.isNull(r.PicUrl)) {
+                        $('#div_Photo').show();
+                        var PicUrl = CM.replaceAll(r.PicUrl, '\\', '/');
+                        $('#img_PicUrl').attr('src', PicUrl);
+                    } else {
+                        $('#div_Photo').hide();
+                    }
+
+                    //$('#PicUrl').val(r.PicUrl);
+                    $('#Url').val(r.Url);
+                    if (r.numstate) {
+                        var dom_numstate = document.getElementById('numstate');
+                        dom_numstate.checked = true;
+                    } else {
+                        var dom_numstate = document.getElementById('numstate');
+                        dom_numstate.checked = false;
+                    }
+                    $('#sort').val(r.sort);
+
+
+                    $('#myModalLabel').html("图文回复消息（编辑）");
+                    $('#myModal').modal('show');
+                })
+        }
+        if (eventType == 'subscribe') {
+            $('#eventKey').val('subscribe');
+        }
+
+    }
+
+    function submitItem() {
+        var url = '/wx/resMsg_news/EditItem';
+        if (item_id == '') {
+            url = '/wx/resMsg_news/Create';
+        }
+
+        $.post(url, $('#form1').serialize(),
+            function (r) {
+                if (r.state) {
+                    $('#myModal').modal('hide');
+                    getItemList();
+                    //window.location.href = '/wx/resMsg_text/Index';
+                } else {
+                    CM.showMsg('提交数据失败!');
+                }
+            });
+    }
+
+    function delItem(id) {
+        var msg = '您确认要删除此条信息吗？';
+        CM.showConfirm(msg, function (obj) {
+            if (obj == 'yes') {
+                $.post("/wx/resMsg_news/Delete", { id: id },
+                    function (r) {
+                        if (r.state) {
+                            $('#myModal').modal('hide');
+                            getItemList();
+                           // window.location.href = '/wx/resMsg_text/Index';
+                        } else {
+                            CM.showMsg('删除数据失败!');
+                        }
+                    });
+            } else {
+                //console.log('你点击了取消！');
+            }
+
+        });
+    }
+
+
+
+      //Dropzone的初始化，myDropzone为form的id
+        Dropzone.options.myDropzone = {
+
+            //指定上传图片的路径
+           // url: "@Url.Action("FileUpload", "file")",
+            url: '/Admin/File/Upload_wxnewsPic',
+            method: "post",  //也可用put
+            paramName: "file", //默认为file
+            maxFiles: 1,//一次性上传的文件数量上限
+            maxFilesize: 0.2, //文件大小，单位：MB
+            acceptedFiles: ".jpg,.gif,.png,.jpeg", //上传的类型
+            addRemoveLinks: true, //添加上传取消和删除预览图片的链接，默认不添加
+            autoProcessQueue: true,//关闭自动上传功能，默认会true会自动上传
+            uploadMultiple: false,//允许上传多个照片
+            parallelUploads: 1,//每次上传的最多文件数，经测试默认为2，坑啊,记得修改web.config 限制上传文件大小的节
+            dictDefaultMessage: '拖动文件至此或者点击上传',
+            dictMaxFilesExceeded: "您最多只能上传1个文件！",
+            dictResponseError: '文件上传失败!',
+            dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+            dictFallbackMessage: "浏览器不受支持",
+            dictFileTooBig: "文件过大上传文件最大支持.",
+            dictRemoveLinks: "删除",
+            dictCancelUpload: "取消",
+            init: function () {
+                //var submitButton = document.querySelector("#btnSubmit")
+                myDropzone = this; // closure
+                
+                ////为上传按钮添加点击事件
+                //submitButton.addEventListener("click", function () {
+                //    //手动上传所有图片
+                //    myDropzone.processQueue();
+                //});
+
+                //当添加图片后的事件，上传按钮恢复可用
+                this.on("addedfile", function () {
+                    //$("#btnSubmit").removeAttr("disabled");
+                });
+
+                //当上传完成后的事件，接受的数据为JSON格式
+                this.on("complete", function (data) {
+                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                        var res = eval('(' + data.xhr.responseText + ')');
+                        res = res[0];
+                        //var msg;
+                        if (res.Result) {
+                            //msg = "恭喜，已成功上传" + res.Count + "张照片！";
+                            //if (item_id == '') {//新建操作
+                            //    $('#ID').val(res.guid);
+                            //}
+                            $('#PicUrl').val(res.filePath);
+                        }
+                        else {
+                           // msg = "上传失败，失败的原因是：" + res.Message;
+                        }
+                       // CM.showMsg(msg);
+                        //$("#message").text(msg);
+                        //$("#dialog").dialog("open");
+                    }
+                });
+
+                //删除图片的事件，当上传的图片为空时，使上传按钮不可用状态
+                this.on("removedfile", function () {
+                    if (this.getAcceptedFiles().length === 0) {
+                        $('#PicUrl').val('');
+                    }
+                });
+            }
+        };
+
+</script>

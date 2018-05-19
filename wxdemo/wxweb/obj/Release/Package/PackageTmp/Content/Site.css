@@ -1,0 +1,154 @@
+﻿
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+
+#divMenu {
+    width: 100%;
+    clear: both;
+}
+
+    #divMenu .tabP {
+        width: 100%;
+        padding: 5px 0px;
+        margin: 0px;
+        font-size: 14px;
+        background: #fff;
+        line-height: 28pt;
+        border: 1px solid #ccc;
+        color: blue;
+    }
+
+        #divMenu .tabP td {
+            height: 25px;
+        }
+
+    #divMenu .tabC {
+        width: 100%;
+        /*margin: 5px 5px 5px 30px;*/
+        font-size: 12px;
+        line-height: 24pt;
+        border-bottom: 1px solid #ccc;
+    }
+
+        #divMenu .tabC td {
+            height: 20px;
+        }
+
+    #divMenu .img_menu {
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    #divMenu .numsort {
+        font-size: 10px;
+        color: #666;
+    }
+
+    #divMenu .divhover {
+        background: #eff6fa;
+    }
+
+
+/*自定义radio*/
+.custom-radio {
+    display: none;
+}
+
+    .custom-radio + label {
+        -webkit-appearance: none;
+        background-color: #e9ecee;
+        border: 1px solid #adb8c0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+        padding: 9px;
+        border-radius: 50px;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        margin-bottom: -5px;
+    }
+
+    .custom-radio:checked + label:after {
+        content: ' ';
+        width: 12px;
+        height: 12px;
+        border-radius: 50px;
+        position: absolute;
+        top: 3px;
+        background: #7ccd7c;
+        box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+        text-shadow: 0px;
+        left: 3px;
+        font-size: 32px;
+    }
+
+    .custom-radio:checked + label {
+        background-color: #fafafa;
+        border: 1px solid #cacece;
+        color: #7ccd7c;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+        .custom-radio + label:active, .custom-radio:checked + label:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+        }
+
+/*自定义checkbox*/
+.custom-checkbox {
+    display: none;
+}
+
+    .custom-checkbox + label {
+        background-color: #e9ecee;
+        border: 1px solid #adb8c0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+        padding: 9px;
+        border-radius: 3px;
+        display: inline-block;
+        position: relative;
+        margin-bottom: -5px;
+        cursor: pointer;
+    }
+
+        .custom-checkbox + label:active, .custom-checkbox:checked + label:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+        }
+
+    .custom-checkbox:checked + label {
+        background-color: #fafafa;
+        border: 1px solid #cacece;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+        color: #228b22;
+    }
+
+        .custom-checkbox:checked + label:after {
+            content: '\2714';
+            font-size: 14px;
+            position: absolute;
+            top: 0px;
+            left: 3px;
+            color: #228b22;
+        }
+
+

@@ -1,0 +1,9 @@
+//写入 Login页面
+//user:用户信息
+//menuAuth:用户所在用户组的菜单权限信息
+  localStorage.setItem('user', JSON.stringify(r.user.Data));
+  localStorage.setItem('menuAuth', JSON.stringify(r.menuAuth.Data));
+
+  //获取
+  var user = JSON.parse(localStorage.getItem('user'));
+  var sLoginName = user.sLoginName;

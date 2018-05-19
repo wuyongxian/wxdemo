@@ -1,0 +1,13 @@
+F:\wxdemo\DAL\bin\Debug\DAL.dll.config
+F:\wxdemo\DAL\bin\Debug\DAL.dll
+F:\wxdemo\DAL\bin\Debug\DAL.pdb
+F:\wxdemo\DAL\bin\Debug\EntityFramework.dll
+F:\wxdemo\DAL\bin\Debug\EntityFramework.SqlServer.dll
+F:\wxdemo\DAL\bin\Debug\EntityFramework.xml
+F:\wxdemo\DAL\bin\Debug\EntityFramework.SqlServer.xml
+F:\wxdemo\DAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+F:\wxdemo\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+F:\wxdemo\DAL\obj\Debug\DAL.csproj.CopyComplete
+F:\wxdemo\DAL\obj\Debug\DAL.dll
+F:\wxdemo\DAL\obj\Debug\DAL.pdb
+F:\wxdemo\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
